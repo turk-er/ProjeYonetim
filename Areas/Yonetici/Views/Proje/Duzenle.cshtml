@@ -1,0 +1,56 @@
+﻿@model ProjeYonetim.Models.Proje
+
+@{
+    ViewData["Title"] = "Ekle";
+}
+
+<h1>Düzenle</h1>
+
+<h4>Proje</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Duzenle">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProjeAdi" class="control-label"></label>
+                <input asp-for="ProjeAdi" class="form-control" />
+                <span asp-validation-for="ProjeAdi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BasTarihi" class="control-label"></label>
+                <input asp-for="BasTarihi" class="form-control" />
+                <span asp-validation-for="BasTarihi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BitTarihi" class="control-label"></label>
+                <input asp-for="BitTarihi" class="form-control" />
+                <span asp-validation-for="BitTarihi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjeGeliri" class="control-label"></label>
+                <input asp-for="ProjeGeliri" class="form-control" />
+                <span asp-validation-for="ProjeGeliri" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <div class="list-group">
+                    <label asp-for="PersonelList" class="control-label"></label>
+                    <select asp-for="PersonelList" asp-items="ViewBag.Per" multiple class="form-control"> </select>
+                    <span asp-validation-for="PersonelList" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Düzenle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Listeye Dön</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

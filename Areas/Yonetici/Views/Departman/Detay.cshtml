@@ -1,0 +1,24 @@
+﻿@model ProjeYonetim.Models.Departman
+
+@{
+    ViewData["Title"] = "Detay";
+}
+
+<h1>Detay</h1>
+
+<div>
+    <h4>Departman</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DepartmanAdi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepartmanAdi)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Duzenle" asp-route-id="@Model.ID">Duzenle</a> |
+    <a asp-action="Index">Listeye Dön</a>
+</div>

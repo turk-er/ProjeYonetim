@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IdentityUser
+
+@{ ViewData["Title"] = "Kullanıcı Detay"; }
+
+
+<h1>Detay</h1>
+
+<div>
+    <h4>Kullanıcı</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PasswordHash)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PasswordHash)
+        </dd>
+    </dl>
+</div>
+<div>
+   
+    <a asp-action="Index">Listeye Dön</a>
+</div>

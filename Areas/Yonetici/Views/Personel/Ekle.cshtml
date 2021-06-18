@@ -1,0 +1,118 @@
+﻿
+@model ProjeYonetim.Models.ViewModels.PersonelImageViewModel
+
+@{
+    ViewData["Title"] = "Ekle";
+    
+}
+
+<div class="col-md-10 mx-auto py-4">
+    <div class="card">
+        <div class="card-header bg-primary text-uppercase text-white">
+            <h4>Personel Ekle</h4>
+        </div>
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-action="Ekle">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Ad" class="control-label"></label>
+                            <input asp-for="Ad" class="form-control" />
+                            <span asp-validation-for="Ad" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Soyad" class="control-label"></label>
+                            <input asp-for="Soyad" class="form-control" />
+                            <span asp-validation-for="Soyad" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DogumTarihi" class="control-label"></label>
+                            <input asp-for="DogumTarihi" class="form-control" />
+                            <span asp-validation-for="DogumTarihi" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Cinsiyet" class="control-label"></label>
+                            <select asp-for="Cinsiyet" class="form-control">
+                                <option value="">Cinsiyet</option>
+                                <option value="Erkek">Erkek</option>
+                                <option value="Kadın">Kadın</option>
+                            </select>
+                            <span asp-validation-for="Cinsiyet" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="DeparmanID" class="control-label"></label>
+                            <select asp-for="DeparmanID" asp-items="ViewBag.dep" class="form-control"> </select>
+                            <span asp-validation-for="DeparmanID" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="TelefonNo" class="control-label"></label>
+                            <input asp-for="TelefonNo" class="form-control" />
+                            <span asp-validation-for="TelefonNo" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Maas" class="control-label"></label>
+                            <input asp-for="Maas" class="form-control" />
+                            <span asp-validation-for="Maas" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ProfilImage" class="control-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="ProfilImage" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                            <span asp-validation-for="ProfilImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                  
+
+
+                </div>
+             
+                <div class="form-group">
+                    <input type="submit" value="submit" class="btn btn-sm btn-primary rounded-0 text-uppercase" />
+                    <a asp-action="Index" class="btn btn-sm btn-primary rounded-0 text-uppercase"> Personel Listesine Dön</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+            // Add the following code if you want the name of the file appear on select
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+    </script>
+}

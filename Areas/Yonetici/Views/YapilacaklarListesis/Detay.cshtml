@@ -1,0 +1,55 @@
+﻿@model ProjeYonetim.Models.YapilacaklarListesi
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Görev Detayı</h1>
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Personel)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Personel.Ad)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Baslik)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Baslik)
+        </dd>
+        <dt class="col-sm-3">
+            Görev Önceliği
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Oncelik)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Gorev)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Gorev)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.BaslamaZamani)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.BaslamaZamani)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.BitisZamanı)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.BitisZamanı)
+        </dd>
+
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Duzenle" asp-route-id="@Model.ID">Düzenle</a> |
+    <a asp-action="Index">Listeye Dön</a>
+</div>

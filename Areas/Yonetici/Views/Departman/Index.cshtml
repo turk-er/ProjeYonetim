@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ProjeYonetim.Models.Departman>
+
+@{
+    ViewData["Title"] = "Detaylar";
+}
+
+<h1 style="text-align:center" class="section-title h1 rounded-pill"> <b>   Departman Listesi  </b>   </h1>
+
+<p>
+    <a asp-action="Ekle" class="btn btn-sm btn-primary rounded-pill">Departman Ekle</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmanAdi)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmanAdi)
+                </td>
+                <td>
+                    <a asp-action="Duzenle" asp-route-id="@item.ID">Düzenle</a> |
+                    <a asp-action="Sil" asp-route-id="@item.ID">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

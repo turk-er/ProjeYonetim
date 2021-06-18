@@ -1,0 +1,87 @@
+﻿@model ProjeYonetim.Models.YapilacaklarListesi
+
+@{
+    ViewData["Title"] = "Ekle";
+}
+
+<div class="row p-0">
+    <div class="col-md-6 mx-auto py-4" style="padding-bottom:0px !important;margin-top:10px !important">
+        <div class="text-center alert-primary">
+            <h1 style="padding-top:10px !important">GÖREV EKLE</h1>
+            <hr />
+
+        </div>
+    </div>
+</div>
+
+<div class="row p-0">
+    <div class="col-md-8 mx-auto py-4" style="padding-top:5px !important">
+        <div class="card-body alert-primary">
+            <form asp-action="Duzenle">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="PersonelID" class="control-label">Personel</label>
+                    <select asp-for="PersonelID" class="form-control modal-dialog-centered" asp-items="ViewBag.PersonelID"></select>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Baslik" class="control-label"></label>
+                            <input asp-for="Baslik" class="form-control" />
+                            <span asp-validation-for="Baslik" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Oncelik" class="control-label">Priority</label>
+                            <select asp-for="Oncelik" class="form-control">
+                                <option value=""></option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                            <span asp-validation-for="Oncelik" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Gorev" class="control-label"></label>
+                    <textarea asp-for="Gorev" class="form-control"></textarea>
+                    <span asp-validation-for="Gorev" class="text-danger"></span>
+                </div>
+                <div class="row p-0">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label asp-for="BaslamaZamani" class="control-label"></label>
+                            <input asp-for="BaslamaZamani" class="form-control" />
+                            <span asp-validation-for="BaslamaZamani" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="BitisZamanı" class="control-label"></label>
+                            <input asp-for="BitisZamanı" class="form-control" />
+                            <span asp-validation-for="BitisZamanı" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group col-md-8 mx-auto py-4" style="padding-top:0px !important">
+
+                    <input type="submit" value="submit" class="btn btn-sm btn-info rounded-0 text-uppercase" />
+                    <a asp-action="Index" class="btn btn-sm btn-info rounded-0 text-uppercase"> Görev Listesine Dön</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

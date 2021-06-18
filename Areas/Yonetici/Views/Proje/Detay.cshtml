@@ -1,0 +1,84 @@
+﻿@model ProjeYonetim.Models.Proje
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Detay</title>
+</head>
+<body>
+
+<div>
+    <h4>Proje</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProjeAdi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProjeAdi)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BasTarihi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BasTarihi)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BitTarihi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BitTarihi)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProjeGeliri)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProjeGeliri)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NetGelir)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NetGelir)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ay)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ay)
+        </dd>
+        <dt class="col-sm-2">
+
+            Ad Soyad :
+
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var item in Model.PersonelProjes)
+            {
+
+                <p>@Html.DisplayFor(model => item.Personel.AdSoyad)</p>
+
+            }
+
+        </dd>
+        <dt class="col-sm-2">
+           Proje İlerleme Durumu
+        </dt>
+        <dd class="col-sm-10">
+            <div class="progress" style="height:20px !important">
+                <div class="progress-bar" role="progressbar" style="width: @TempData["Ilerleme"]%;" aria-valuenow="@TempData["Ilerleme"]" aria-valuemin="0" aria-valuemax="100">@TempData["Ilerleme"]%</div>
+            </div>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Duzenle" asp-route-id="@Model.ID">Duzenle</a> |
+    <a asp-action="Index">Listeye Dön</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+﻿
+@model IEnumerable<ProjeYonetim.Models.Personel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<!-- Team -->
+<section  class="pb-5" style="padding-top:3px !important">
+    <div class="container">
+        <h4 style="text-align:center" class="section-title rounded-pill"> <span><b>PERSONEL LİSTESİ</b></span></h4>
+        <p>
+            <a asp-action="Ekle" class="btn btn-sm btn-primary rounded-pill"> Personel Ekle</a>
+        </p>
+        <div class="row" style="margin-top:0px;padding-top:0px !important">
+            @foreach (var item in Model)
+            {
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="image-flip">
+                        <div class="mainflip flip-0">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="~/images/@item.ProfilResmi" alt="card image"></p>
+                                        <h4 class="card-title">@item.AdSoyad</h4>
+                                        <p class="card-text">@item.Departman.DepartmanAdi</p>
+                                        <p class="card-text">@item.Email</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside ">
+                                <div class="card ">
+                                    <div class="card-body text-center mt-4">
+                                        <h4 class="card-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Personel Bilgileri &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><b>Doğum Tarihi&nbsp;:</b>&nbsp;@item.DogumTarihi.ToShortDateString()</li>
+                                            <li class="list-group-item"><b>Telefon &nbsp;:</b>&nbsp;@item.TelefonNo</li>
+                                            <li class="list-group-item"><b> Maaş&nbsp;:&nbsp;</b>@item.Maas</li>
+
+                                        </ul>
+                                        <ul class="list-inline">
+
+                                            <li class="list-inline-item">
+                                                <a asp-action="Detay" asp-route-id="@item.ID">Detay</a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a asp-action="Duzenle" asp-route-id="@item.ID">Düzenle</a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a asp-action="Sil" asp-route-id="@item.ID">Sil</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</section>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Team -->

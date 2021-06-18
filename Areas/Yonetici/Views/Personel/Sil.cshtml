@@ -1,0 +1,37 @@
+﻿@model ProjeYonetim.Models.Personel
+
+@{
+    ViewData["Title"] = "Sil";
+}
+
+
+
+<h3>Personeli silmek istediğinizden emin misiniz</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProfilResmi)
+        </dt>
+        <dt class="col-sm-5">
+            @Html.DisplayNameFor(model => model.AdSoyad)
+        </dt>
+    </dl>
+    <dl class="row">
+        <dd class="col-sm-2">
+            <img src="~/images/@Model.ProfilResmi"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+        <dd class="col-sm-5">
+            @Html.DisplayFor(model => model.AdSoyad)
+        </dd>
+    </dl>
+
+
+    <form asp-action="Sil">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Sil" class="btn btn-danger" /> |
+        <a asp-action="Index">Listeye Dön</a>
+    </form>
+</div>

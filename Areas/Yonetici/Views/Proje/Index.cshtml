@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ProjeYonetim.Models.Proje>
+
+@{
+    ViewData["Title"] = "Index";
+    
+}
+
+<h5 style="text-align:center" class="section-title h1 rounded-pill" > <span >&nbsp; PROJELER &nbsp;</span></h5>
+
+
+<div style="margin:10px">
+    <a asp-action="Ekle" class="btn btn-sm btn-primary rounded-pill">Proje Ekle</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjeAdi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BasTarihi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BitTarihi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjeGeliri)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetGelir)
+            </th>
+          
+            <th>
+               Proje Süresi
+            </th>
+            <th>Personel</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjeAdi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BasTarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BitTarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjeGeliri)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NetGelir)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Ay)
+            </td>
+            <td>
+                <ul>
+                    @foreach (var per in item.PersonelProjes)
+                    {
+                        <li> <img src="~/images/@per.Personel.ProfilResmi"
+                         class="rounded-circle"
+                            height="40" width="40"
+                            asp-append-version="true" /> 
+                    @per.Personel.AdSoyad</li>
+
+                    }
+                </ul>
+            </td>
+            <td>
+                <a asp-action="Duzenle" asp-route-id="@item.ID">Düzenle</a> |
+                <a asp-action="Detay" asp-route-id="@item.ID">Detay</a> |
+                <a asp-action="Sil" asp-route-id="@item.ID">Sil</a>
+            </td>
+        </tr>
+      
+}
+    </tbody>
+</table>

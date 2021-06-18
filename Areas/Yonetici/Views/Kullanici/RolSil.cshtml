@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IdentityRole
+
+@{ ViewData["Title"] = "Rol Sil"; }
+
+
+<h3>Rolü silmek istediğinize emin misiniz?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="RolSil">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Sil" class="btn btn-danger" /> |
+        <a asp-action="RolListe">Listeye Dön</a>
+    </form>
+</div>

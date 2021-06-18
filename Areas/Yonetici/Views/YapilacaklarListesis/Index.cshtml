@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ProjeYonetim.Models.YapilacaklarListesi>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h5 class="section-title h1 rounded-pill">GÖREVLER</h5>
+
+<p>
+    <a asp-action="Ekle">Gorev Ekle</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Baslik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gorev)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaslamaZamani)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BitisZamanı)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Oncelik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Personel)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Baslik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gorev)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaslamaZamani)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BitisZamanı)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Oncelik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Personel.Ad)
+            </td>
+            <td>
+                <a asp-action="Duzenle" asp-route-id="@item.ID">Duzenle</a> 
+                <a asp-action="Detay" asp-route-id="@item.ID">Detay</a> 
+                <a asp-action="Sil" asp-route-id="@item.ID">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

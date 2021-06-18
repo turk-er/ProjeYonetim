@@ -1,0 +1,112 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Material Admin by Bootstrapious.com</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <link href="~/css/per.css" rel="stylesheet" />
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="~/vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="~/csss/fontastic.css">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="~/csss/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="~/csss/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/img/favicon.ico">
+
+</head>
+
+<body>
+    <div class="page">
+        <!-- Main Navbar-->
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg border-bottom box-shadow mb-3" style="background-color:#3b25e6 ">
+                <div class="container">
+                    <a class="navbar-brand text-light " asp-area="" asp-controller="Home" asp-action="Index">Turker Academy</a>
+                    <a id="toggle-btn" href="#" class="menu-btn"><span></span><span></span><span></span></a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon alert-light"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1 text-hide">
+                            <li class="nav-item"> 
+                            </li>
+                            <li class="nav-item">
+                            </li>
+                        </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+
+                <ul class="list-unstyled">
+                    <li><a class="navbar-brand" asp-area="Yonetici" asp-controller="Home" asp-action="Index"> <i class="fa fa-bank"></i>Ana Sayfa </a></li>
+                    <li><a class="navbar-brand" asp-area="Yonetici" asp-controller="Personel" asp-action="Index"> <i class="fa fa-address-card"></i>Personel </a>
+
+                    <li><a class="navbar-brand" asp-area="Yonetici" asp-controller="Proje" asp-action="Index"> <i class="fa fa-bar-chart"></i>Projeler </a></li>
+                    <li><a class="navbar-brand" asp-area="Yonetici" asp-controller="Departman" asp-action="Index"> <i class="fa fa-check"></i>Departman </a></li>
+                    <li><a class="navbar-brand" asp-area="Yonetici" asp-controller="YapilacaklarListesis" asp-action="Index"> <i class="fa fa-calendar"></i>Görevler </a></li>
+
+                    <li>
+                            <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Kullanıcı İşlemleri</a>
+                            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                                <li><a class="navbar-brand" asp-area="Yonetici" asp-controller="Kullanici" asp-action="Index"> <i class="fa fa-user"></i>Kullanıcı Listesi </a></li>
+                                <li><a class="navbar-brand" asp-area="Yonetici" asp-controller="Kullanici" asp-action="RolListe"> <i class="fa fa-cubes"></i>Rol Listesi </a></li>
+
+                                
+                            </ul>
+                        </li>
+                   
+                </ul>
+
+            </nav>
+            <div class="content-inner">
+                <section class="dashboard-counts no-padding">
+                    <div class="container-fluid">
+                        <div class="bg-white has-shadow m-0 p-2">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - ProjeYonetim - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/popper.js/umd/popper.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/vendor/jquery.cookie/jquery.cookie.js"></script>
+    <script src="~/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/jss/charts-home.js"></script>
+    <!-- Main File-->
+    <script src="~/jss/front.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
