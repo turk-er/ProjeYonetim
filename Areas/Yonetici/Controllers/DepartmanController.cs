@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ProjeYonetim.Data;
 using ProjeYonetim.Models;
 
@@ -13,10 +14,12 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
     public class DepartmanController : TemelController
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<DepartmanController> _logger;
 
-        public DepartmanController(ApplicationDbContext context)
+        public DepartmanController(ApplicationDbContext context,ILogger<DepartmanController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
        
@@ -54,12 +57,20 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Ekle([Bind("ID,DepartmanAdi")] Departman departman)
         {
-            if (ModelState.IsValid)
+            try
+            {
+                if (ModelState.IsValid)
             {
                 _context.Add(departman);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            }
+            catch (Exception exp)
+            {
+                _logger.LogError(exp, "Departman Ekleme islemi gerceklestirilemedi! - {Tarih}", DateTime.Now);
+            }
+
             return View(departman);
         }
 
@@ -82,31 +93,39 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Duzenle(int id, [Bind("ID,DepartmanAdi")] Departman departman)
         {
-            if (id != departman.ID)
+            try
             {
-                return NotFound();
+                if (id != departman.ID)
+                {
+                    return NotFound();
+                }
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Update(departman);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!DepartmanExists(departman.ID))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch (Exception exp)
+            {
+                _logger.LogError(exp, "Departman Güncelleme islemi gerceklestirilemedi! - {Tarih}", DateTime.Now);
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(departman);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DepartmanExists(departman.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
             return View(departman);
         }
 
@@ -131,12 +150,22 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
     
         [HttpPost, ActionName("Sil")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Sil(int id)
+        public async Task<IActionResult> Sil(int id,Departman departman)
         {
-            var departman = await _context.Departmans.FindAsync(id);
-            _context.Departmans.Remove(departman);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                   var _departman = await _context.Departmans.FindAsync(id);
+                  _context.Departmans.Remove(_departman);
+                  await _context.SaveChangesAsync();
+                  return RedirectToAction(nameof(Index));
+            }
+            catch (Exception exp)
+            {
+                _logger.LogError(exp, "Departman Silme islemi gerceklestirilemedi! - {Tarih}", DateTime.Now);
+            }
+
+            return View(departman);
+
         }
 
         private bool DepartmanExists(int id)

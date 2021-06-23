@@ -34,12 +34,12 @@ namespace ProjeYonetim.Models
         public double ProjeGeliri { get; set; }
 
         [DisplayName("Net Gelir"), DataType(DataType.Currency)]
-        public double? NetGelir { get; set; }
+        [NotMapped]
+        public double? NetKar { get; set; }
 
         public string EkAlan { get; set; }
 
         public double?  Ay { get; set; }
-
 
         public List<PersonelProje> PersonelProjes { get; set; }
 

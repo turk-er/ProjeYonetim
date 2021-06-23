@@ -184,13 +184,16 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
         public async Task<IActionResult> Sil(Personel person, int id)
         {
             int sonuc = 0;
-            var personel = await _context.Personels.FindAsync(id);
-            _context.Personels.Remove(personel);
-           sonuc= await _context.SaveChangesAsync();
-            if (sonuc>=1)
-            {
-                return RedirectToAction(nameof(Index));
-            }
+           
+                var personel = await _context.Personels.FindAsync(id);
+                _context.Personels.Remove(personel);
+                sonuc = await _context.SaveChangesAsync();
+               
+                if (sonuc >= 1)
+                {
+                   
+                    return RedirectToAction(nameof(Index));
+                }
             return View(person);
         }
 

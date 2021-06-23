@@ -19,6 +19,8 @@ namespace ProjeYonetim.Data
         public DbSet<Departman> Departmans { get; set; }
         public DbSet<YapilacaklarListesi> YapilacaklarListesis { get; set; }
 
+       
+
     
     }
 }

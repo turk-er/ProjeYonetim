@@ -13,41 +13,53 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
     public class ProjeController : TemelController
     {
         private readonly ApplicationDbContext _context;
-        
-
         public ProjeController(ApplicationDbContext context)
         {
             _context = context;
-          
         }
         public IActionResult Index()
         {
-            var projes =  _context.Projes.Include(x => x.PersonelProjes).ThenInclude(x => x.Personel).ToList();
+                 var projes =  (_context.Projes.Include(x => x.PersonelProjes).ThenInclude(x => x.Personel)).ToList();
 
+           foreach (var item in projes)
+            {
+                double gider = 0;
+                foreach (var it in item.PersonelProjes)
+                {
+                    var person = _context.Personels.FirstOrDefault(x => x.ID == it.PersonelID);
+                      gider += +person.Maas;
+
+                }
+                  item.NetKar = item.ProjeGeliri - (gider * item.Ay);
+            }
             return View(projes);
         }
         public IActionResult Detay(int? Id)
         {
-
             if (Id == null)
             {
                 return NotFound();
             }
+            var proje = _context.Projes.Include(x => x.PersonelProjes).ThenInclude(x => x.Personel).FirstOrDefault(m => m.ID == Id);
+            double gider = 0;
 
-            var proje = _context.Projes.Include(x => x.PersonelProjes).ThenInclude(x => x.Personel).
-                FirstOrDefault(m => m.ID == Id);
+            foreach (var item in proje.PersonelProjes)
+            {
+                var person = _context.Personels.FirstOrDefault(x => x.ID == item.PersonelID);
+                gider += +person.Maas;
+            }
+            proje.NetKar = proje.ProjeGeliri - (gider * proje.Ay);
 
             var gecensure = ((DateTime.Now - proje.BasTarihi).TotalDays) / 30;
 
             int ilerleme = Convert.ToInt32((gecensure * 100) / proje.Ay);
-
+           
             TempData["Ilerleme"] = ilerleme;
 
             if (proje == null)
             {
                 return NotFound();
             }
-
             return View(proje);
 
         }
@@ -67,20 +79,8 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
             {
                 using (var transaction = _context.Database.BeginTransaction())
                 {
-
-
                     TimeSpan zaman = proje.BitTarihi - proje.BasTarihi;
                     proje.Ay = Math.Round((zaman.TotalDays / 30.5), 2);
-
-                    double gider = 0;
-                  
-
-                    foreach (var item in proje.PersonelList)
-                    {
-                        var person = _context.Personels.FirstOrDefault(x => x.ID == item);
-                        gider += + person.Maas;
-                    }
-                    proje.NetGelir = proje.ProjeGeliri - (gider * proje.Ay);
 
                     await _context.Projes.AddAsync(proje);
                     int sonuc = await _context.SaveChangesAsync();
@@ -103,10 +103,8 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
                     }
                     else
                         throw new Exception("Kaydedilemedi!");
-
                 }
             }
-
 
             ViewBag.Per = new SelectList(_context.Personels, nameof(Personel.ID), nameof(Personel.AdSoyad));
             return View(proje);
@@ -121,8 +119,6 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
             };
             var proje = await _context.Projes.FirstOrDefaultAsync(x=>x.ID==id);
             var pp = await _context.PersonelProjes.Where(x => x.ProjeID == id).ToListAsync();
-
-            
 
             if (proje==null)
             {
@@ -153,10 +149,6 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
                     TimeSpan zaman = _proje.BitTarihi - _proje.BasTarihi;
                     _proje.Ay = Math.Round((zaman.TotalDays / 30.5), 2);
 
-                    double gider = 0;
-
-                    
-
                     List<PersonelProje> pep = _context.PersonelProjes.Where(x => x.ProjeID == id).ToList();
 
                     if (proje.PersonelList==null)
@@ -165,30 +157,18 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
                     }
                     else
                     {
+                        _context.PersonelProjes.RemoveRange(pep);
 
-                    foreach (var item in proje.PersonelList)
-                    {
-                        var person = _context.Personels.FirstOrDefault(x => x.ID == item);
-                        gider += person.Maas;
-                    }
-                    _proje.NetGelir = _proje.ProjeGeliri - (gider * _proje.Ay);
-
-                  
-
-                     _context.PersonelProjes.RemoveRange(pep);
                          foreach (var item in proje.PersonelList)
-                      {
-                        PersonelProje pp = new PersonelProje()
-                        {
-                            ProjeID = proje.ID,
-                            PersonelID = item
-                        };
+                         {
+                               PersonelProje pp = new PersonelProje()
+                              {
+                                     ProjeID = proje.ID,
+                                    PersonelID = item
+                              };
                          _context.PersonelProjes.AddRange(pp);
-                           
                         }
                     }
-                  
-
                     sonuc = await _context.SaveChangesAsync();
 
                     if (sonuc >= 1)
@@ -198,14 +178,11 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
                     }
                     else
                         throw new Exception("Kaydedilemedi!");
-
                 }
             }
-
-
             ViewBag.Per = new SelectList(_context.Personels, nameof(Personel.ID), nameof(Personel.AdSoyad));
-            return View(proje);
 
+            return View(proje);
         }
         public async Task<IActionResult> Sil(int? id)
         {
@@ -237,8 +214,5 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
 
             return View(proje);
         }
-
-      
-
     }
 }

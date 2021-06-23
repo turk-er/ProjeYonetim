@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ProjeYonetim.Data;
+using ProjeYonetim.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +16,20 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
 {
     public class KullaniciController : TemelController
     {
-        private readonly ApplicationDbContext _context;
+        private  ApplicationDbContext _context;
         private readonly ILogger<KullaniciController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+       
+      
 
         public KullaniciController(
             ApplicationDbContext context, 
             ILogger<KullaniciController> logger, 
             UserManager<IdentityUser> userManager, 
             RoleManager<IdentityRole> roleManager
+            
+            
         )
         {
             _context = context;
@@ -33,8 +40,9 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
         #region kullanici
         public IActionResult Index()
         {
-            List<IdentityUser> kullanicilar = _userManager.Users.ToList();
-            return View(kullanicilar);
+            var usersWithRoles = _context.Users.ToList();
+            return View(usersWithRoles);
+
         }
         public IActionResult Detay(string id)
         {
@@ -96,6 +104,8 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
             {
                 _logger.LogError(exp, "Kullanici Duzenleme islemi gerceklestirilemedi! - {Tarih}", DateTime.Now);
             }
+
+       
             return View(user);
         }
 
@@ -163,7 +173,7 @@ namespace ProjeYonetim.Areas.Yonetici.Controllers
             }
             ViewData["Roller"] = new SelectList(_roleManager.Roles, nameof(IdentityRole.Id), nameof(IdentityRole.Name));
             ViewData["Kullanici"] = user;
-            return View();
+            return View(user);
         }
 
         #endregion

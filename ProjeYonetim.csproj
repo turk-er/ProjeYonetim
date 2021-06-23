@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Identity\Data\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\vendor\font-awesome\less\" />
     <Folder Include="wwwroot\vendor\font-awesome\scss\" />
